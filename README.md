@@ -1,13 +1,33 @@
 # ELK-Kafka
-A Docker-compose file to stand up our ELK stack with Kafka for event driven network automation
 
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-- Makefile
-- directory for all of project files
-- directory for my docker container files
-- directory for Logstash, config folder for config files
-- directory for Elasticsearch, config folder for config files
-- directory for Kibana, config folder for config files
-- directory for Kafka, config folder for config files
-- directory for python consumer containers, config folder for config files
-- 
+`ELK-Kafka` is an easier way to spin up a SYSLOG and Message Queue for network engineering operations
+
+## New Features
+
+> Makefile included to help the build and run operations
+
+## Dependencies
+
+*[docker](https://www.docker.com/) - PaaS solution to spin up virtual environments based on container technology
+
+## Installation
+
+Simply build all the containers with this command
+
+```sh
+$ make build
+```
+
+Run the containers with the following command
+
+```sh
+$ make run
+```
+
+## Development
+
+Want to contribute? Great!
+
+Submit a PR and let's work on this together :D
