@@ -26,6 +26,10 @@ Run the containers with the following command
 $ make run
 ```
 
+## Work in progress
+
+> all Kafka components
+
 ## Development
 
 Want to contribute? Great!
