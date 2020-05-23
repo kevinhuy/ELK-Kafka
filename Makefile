@@ -28,6 +28,21 @@ KIBANA_CONTAINER_TAG = 0.0.1
 KIBANA_CONTAINER_PORT = 5601
 KIBANA_CONTAINER_NAME = elk-kibana
 
+KAFKA_CONTAINER_IMAGE = packetferret/elk-kafka
+KAFKA_CONTAINER_TAG = 0.0.1
+KAFKA_CONTAINER_PORT = 9092
+KAFKA_CONTAINER_NAME = elk-kafka
+KAFKA_CREATE_TOPICS = "juniper:1:1,isis_down:1:1,isis_up:1:1,bgp_down:1:1"
+KAFKA_ZOOKEEPER_CONNECT = 10.255.46.2:2181
+KAFKA_ADVERTISED_HOST_NAME = 10.255.46.2
+
+ZOOKEEPER_CONTAINER_IMAGE = packetferret/elk-zookeeper
+ZOOKEEPER_CONTAINER_TAG = 0.0.1
+ZOOKEEPER_CONTAINER_PORT = 2181
+ZOOKEEPER_CONTAINER_NAME = elk-zookeeper
+
+
+
 help:
 	@echo ''
 	@echo 'Makefile will help us build with the following commands'
@@ -57,7 +72,7 @@ clean_images:
 		$(ELASTICSEARCH_CONTAINER_IMAGE):$(ELASTICSEARCH_CONTAINER_TAG)\
 		$(KIBANA_CONTAINER_IMAGE):$(KIBANA_CONTAINER_TAG)
 
-build: build_logstash build_elasticsearch build_kibana
+build: build_logstash build_elasticsearch build_kibana build_zookeeper build_kafka
 
 build_logstash:
 	docker build \
@@ -74,11 +89,20 @@ build_kibana:
 	-t $(KIBANA_CONTAINER_IMAGE):$(KIBANA_CONTAINER_TAG) \
 	files/docker/kibana/
 
-# build-kafka:
+build_zookeeper:
+	docker build \
+	-t $(ZOOKEEPER_CONTAINER_IMAGE):$(ZOOKEEPER_CONTAINER_TAG) \
+	files/docker/zookeeper/
+
+build_kafka:
+	docker build \
+	-t $(KAFKA_CONTAINER_IMAGE):$(KAFKA_CONTAINER_TAG) \
+	files/docker/kafka/
+
 
 # logs:
 
-run: build run_logstash run_elasticsearch run_kibana
+run: build run_logstash run_elasticsearch run_kibana run_zookeeper run_kafka
 
 run_logstash:
 	docker run \
@@ -109,4 +133,19 @@ run_kibana:
 	--name $(KIBANA_CONTAINER_NAME) \
 	$(KIBANA_CONTAINER_IMAGE):$(KIBANA_CONTAINER_TAG)
 
-# rm: 
+run_zookeeper:
+	docker run \
+	-d \
+	-p $(ZOOKEEPER_CONTAINER_PORT):$(ZOOKEEPER_CONTAINER_PORT) \
+	--name $(ZOOKEEPER_CONTAINER_NAME) \
+	$(ZOOKEEPER_CONTAINER_IMAGE):$(ZOOKEEPER_CONTAINER_TAG)
+
+run_kafka:
+	docker run \
+	-d \
+	-p $(KAFKA_CONTAINER_PORT):$(KAFKA_CONTAINER_PORT) \
+	--name $(KAFKA_CONTAINER_NAME) \
+	--env KAFKA_CREATE_TOPICS=$(KAFKA_CREATE_TOPICS) \
+	--env KAFKA_ZOOKEEPER_CONNECT=$(KAFKA_ZOOKEEPER_CONNECT) \
+	--env KAFKA_ADVERTISED_HOST_NAME=$(KAFKA_ADVERTISED_HOST_NAME) \
+	$(KAFKA_CONTAINER_IMAGE):$(KAFKA_CONTAINER_TAG)
