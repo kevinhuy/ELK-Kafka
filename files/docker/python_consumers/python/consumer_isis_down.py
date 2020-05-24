@@ -1,5 +1,5 @@
 from kafka import KafkaConsumer
-from json import loads
+from json import loads, dumps
 import requests
 import re
 
@@ -25,6 +25,30 @@ def syslog_cleanup(msg):
         return(neighbor, iface)
 
 
+def send_request(host_name, neighbor, iface):
+    try:
+        response = requests.get(
+            url="http://10.6.6.42/api/v2/job_templates/12/launch/",
+            headers={
+                "Authorization": "Basic YXV0b21hdGlvbjpqdW5pcGVyMTIz",
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            data=dumps({
+                "extra_vars": {
+                    "iface": iface,
+                    "host_name": host_name,
+                    "neighbor": neighbor
+                }
+            })
+        )
+        print('Response HTTP Status Code: {status_code}'.format(
+            status_code=response.status_code))
+        print('Response HTTP Response Body: {content}'.format(
+            content=response.content))
+    except requests.exceptions.RequestException:
+        print('HTTP Request failed')
+
+
 consumer = KafkaConsumer(
     'isis_down',
     value_deserializer=lambda m: loads(m.decode('utf-8')),
@@ -35,6 +59,7 @@ consumer = KafkaConsumer(
 for each_message in consumer:
     host_ip, host_name, msg = kafka_cleanup(each_message)
     neighbor, iface = syslog_cleanup(msg)
+    send_request(host_name, neighbor, iface)
     print('host_ip: ' + str(host_ip))
     print('host_name: ' + str(host_name))
     print('msg: ' + str(msg))
