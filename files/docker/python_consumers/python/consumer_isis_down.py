@@ -27,8 +27,8 @@ def syslog_cleanup(msg):
 
 def send_request(host_name, neighbor, iface):
     try:
-        response = requests.get(
-            url="http://10.6.6.42/api/v2/job_templates/12/launch/",
+        response = requests.post(
+            url="http://10.6.6.46/api/v2/job_templates/12/launch/",
             headers={
                 "Authorization": "Basic YXV0b21hdGlvbjpqdW5pcGVyMTIz",
                 "Content-Type": "application/json; charset=utf-8",
