@@ -15,7 +15,7 @@
         passwd: 'nornir123'
         load: 'merge'
         lines:
-          - 'set interfaces {{ iface }} description "{{ host }} {{ neighbor }} {{ iface }}" '
+          - 'set interfaces {{ iface }} description "{{ host_name }} {{ neighbor }} {{ iface }}" '
         format: 'set'
       register: response
 
