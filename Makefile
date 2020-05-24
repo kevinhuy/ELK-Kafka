@@ -41,6 +41,16 @@ ZOOKEEPER_CONTAINER_TAG = 0.0.1
 ZOOKEEPER_CONTAINER_PORT = 2181
 ZOOKEEPER_CONTAINER_NAME = elk-zookeeper
 
+KAFKA_CONSUMER_IMAGE = packetferret/elk-kafka-consumer
+KAFKA_CONSUMER_TAG = 0.0.1
+KAFKA_CONSUMER_NAME_ISIS_DOWN = elk-kafaka-isis-down
+KAFKA_CONSUMER_NAME_ISIS_UP = elk-kafaka-isis-up
+KAFKA_CONSUMER_NAME_ISIS_BGP = elk-kafaka-bgp-down
+KAFKA_CONSUMER_PYTHON_SCRIPTS_SRC = $(shell pwd)/files/docker/python_consumers/python
+KAFKA_CONSUMER_PYTHON_SCRIPTS_DST = /home/python
+KAFKA_CONSUMER_SCRIPT_ISIS_DOWN = consumer_isis_down.py
+KAFKA_CONSUMER_SCRIPT_ISIS_UP = consumer_isis_up.py
+KAFKA_CONSUMER_SCRIPT_ISIS_BGP = consumer_bgp_down.py
 
 
 help:
@@ -99,6 +109,11 @@ build_kafka:
 	-t $(KAFKA_CONTAINER_IMAGE):$(KAFKA_CONTAINER_TAG) \
 	files/docker/kafka/
 
+build_consumer:
+	docker build \
+	-t $(KAFKA_CONSUMER_IMAGE):$(KAFKA_CONSUMER_TAG) \
+	files/docker/python_consumers/
+
 
 # logs:
 
@@ -149,3 +164,27 @@ run_kafka:
 	--env KAFKA_ZOOKEEPER_CONNECT=$(KAFKA_ZOOKEEPER_CONNECT) \
 	--env KAFKA_ADVERTISED_HOST_NAME=$(KAFKA_ADVERTISED_HOST_NAME) \
 	$(KAFKA_CONTAINER_IMAGE):$(KAFKA_CONTAINER_TAG)
+
+run_consumer_isis_down:
+	docker run \
+	-d \
+	-v $(KAFKA_CONSUMER_PYTHON_SCRIPTS_SRC):$(KAFKA_CONSUMER_PYTHON_SCRIPTS_DST) \
+	--name $(KAFKA_CONSUMER_NAME_ISIS_DOWN) \
+	$(KAFKA_CONSUMER_IMAGE):$(KAFKA_CONSUMER_TAG) \
+	python3 $(KAFKA_CONSUMER_SCRIPT_ISIS_DOWN)
+
+run_consumer_isis_up:
+	docker run \
+	-d \
+	-v $(KAFKA_CONSUMER_PYTHON_SCRIPTS_SRC):$(KAFKA_CONSUMER_PYTHON_SCRIPTS_DST) \
+	--name $(KAFKA_CONSUMER_NAME_ISIS_UP) \
+	$(KAFKA_CONSUMER_IMAGE):$(KAFKA_CONSUMER_TAG) \
+	python3 $(KAFKA_CONSUMER_SCRIPT_ISIS_UP)
+
+run_consumer_bgp_down:
+	docker run \
+	-d \
+	-v $(KAFKA_CONSUMER_PYTHON_SCRIPTS_SRC):$(KAFKA_CONSUMER_PYTHON_SCRIPTS_DST) \
+	--name $(KAFKA_CONSUMER_NAME_BGP_DOWN) \
+	$(KAFKA_CONSUMER_IMAGE):$(KAFKA_CONSUMER_TAG) \
+	python3 $(KAFKA_CONSUMER_SCRIPT_BGP_DOWN)
