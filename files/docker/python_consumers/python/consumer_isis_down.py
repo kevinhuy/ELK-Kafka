@@ -1,5 +1,6 @@
 from kafka import KafkaConsumer
 from json import loads
+import requests
 import re
 
 def kafka_cleanup(each_message):

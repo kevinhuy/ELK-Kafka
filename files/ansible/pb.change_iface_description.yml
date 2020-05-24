@@ -1,0 +1,25 @@
+---
+- name: "### configure the description on our interfaces"
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - juniper.junos
+  tasks:
+    ### -----------------------------------------------
+    ### Configure Interface Description
+    ### -----------------------------------------------
+    - name: "configure the description on our interfaces"
+      juniper_junos_config:
+        user: 'nornir'
+        passwd: 'nornir123'
+        load: 'merge'
+        lines:
+          - 'set interfaces {{ iface }} description "{{ host }} {{ neighbor }} {{ iface }}" '
+        format: 'set'
+      register: response
+
+    - name: Print the complete response
+      debug:
+        var: response
+
