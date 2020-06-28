@@ -4,7 +4,7 @@ SHELL := /usr/bin/env bash
 
 LOGSTASH_CONTAINER_IMAGE = packetferret/elk-logstash
 LOGSTASH_CONTAINER_TAG = 0.0.1
-LOGSTASH_CONTAINER_PORT = 5514
+LOGSTASH_CONTAINER_PORT = 5000
 LOGSTASH_CONTAINER_HTTP_API = 9600
 LOGSTASH_CONTAINER_NAME = elk-logstash
 LOGSTASH_CONFIG_FILE_SRC = $(shell pwd)/files/docker/logstash/config/logstash.yml
