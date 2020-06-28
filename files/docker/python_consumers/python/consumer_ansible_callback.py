@@ -92,9 +92,10 @@ for each_message in consumer:
             device = {}
             device["ansible_host"] = ansible_host
             if result["changed"]:
-                device["ansible_result"] = result["diff_lines"]
+                device["changed"] = True
+                device["diff"] = result["diff_lines"]
             else:
-                device["ansible_result"] = "unchanged"
+                device["changed"] = False
             print(device)
         else:
             pass
