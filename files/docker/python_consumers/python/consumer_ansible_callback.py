@@ -90,7 +90,7 @@ for each_message in consumer:
     # ansible_task
     try:
         if ansible_message["status"] != 'SKIPPED':
-            ansible_host = loads(ansible_message["ansible_host"])
+            ansible_host = ansible_message["ansible_host"]
             result = loads(ansible_message["ansible_result"])
             if result["changed"]:
                 print('=' * 64 + '\nchanged\n')
