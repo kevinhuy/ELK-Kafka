@@ -84,23 +84,20 @@ consumer = KafkaConsumer(
 for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
 
-    # ### devices out of sync with golden config
-    dirty_devices = []
-    
     # ansible_task
     try:
         if ansible_message["status"] != 'SKIPPED':
             ansible_host = ansible_message["ansible_host"]
             result = loads(ansible_message["ansible_result"])
+            device = {}
+            device["ansible_host"] = ansible_host
             if result["changed"]:
-                device = {}
-                device["ansible_host"] = ansible_host
                 device["ansible_result"] = result["diff_lines"]
-                dirty_devices.append(device)
+            else:
+                device["ansible_result"] = "unchanged"
+            print(device)
         else:
             pass
     except KeyError:
         pass
     # send_request(host_name, neighbor, iface)
-    
-print(dirty_devices)
