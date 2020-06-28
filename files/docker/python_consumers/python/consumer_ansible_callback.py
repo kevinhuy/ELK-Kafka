@@ -93,10 +93,10 @@ for each_message in consumer:
             ansible_host = ansible_message["ansible_host"]
             result = loads(ansible_message["ansible_result"])
             if result["changed"]:
-                print('=' * 64 + '\nchanged\n')
                 print('=' * 28 + '{}'.format(ansible_host) + '=' * 28 )
                 print('=' * 64 + '\nchanged\n')
                 print('ansible_message: ' + str(ansible_message))
+                print('diff_lines: ' + str(result["diff_lines"]))
         else:
             pass
     except KeyError:
