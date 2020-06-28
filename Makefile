@@ -126,7 +126,7 @@ build_consumer:
 
 # logs:
 
-run: build run_logstash run_elasticsearch run_kibana run_zookeeper run_kafka
+run: build run_logstash run_elasticsearch run_kibana run_zookeeper run_kafka run_consumer_ansible
 
 run_logstash:
 	docker run \
@@ -197,3 +197,11 @@ run_consumer_bgp_down:
 	--name $(KAFKA_CONSUMER_NAME_BGP_DOWN) \
 	$(KAFKA_CONSUMER_IMAGE):$(KAFKA_CONSUMER_TAG) \
 	python3 $(KAFKA_CONSUMER_SCRIPT_BGP_DOWN)
+
+run_consumer_ansible:
+	docker run \
+	-d \
+	-v $(KAFKA_CONSUMER_PYTHON_SCRIPTS_SRC):$(KAFKA_CONSUMER_PYTHON_SCRIPTS_DST) \
+	--name $(KAFKA_CONSUMER_NAME_ISIS_DOWN) \
+	$(KAFKA_CONSUMER_IMAGE):$(KAFKA_CONSUMER_TAG) \
+	python3 $(KAFKA_CONSUMER_SCRIPT_ANSIBLE_CALLBACK)
