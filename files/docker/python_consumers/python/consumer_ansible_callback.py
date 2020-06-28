@@ -85,11 +85,8 @@ for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
 
     # ansible_task
-    try:
-        if ansible_message["ansible_result"]:
-            result = loads(ansible_message["ansible_result"])
-            print(result["changed"])
-            # if result["changed"] == True:
-            #     print("RESULT GOES HERE")
-    except KeyError:
-        pass
+    if ansible_message["ansible_result"]:
+        result = loads(ansible_message["ansible_result"])
+        print(result["changed"])
+        # if result["changed"] == True:
+        #     print("RESULT GOES HERE")
