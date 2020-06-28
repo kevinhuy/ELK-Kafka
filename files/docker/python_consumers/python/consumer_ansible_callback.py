@@ -50,7 +50,7 @@ def send_request(host_name, neighbor, iface):
 
 
 consumer = KafkaConsumer(
-    'isis_down',
+    'ansible_callback',
     value_deserializer=lambda m: loads(m.decode('utf-8')),
     bootstrap_servers='10.6.6.101:9092'
     )
