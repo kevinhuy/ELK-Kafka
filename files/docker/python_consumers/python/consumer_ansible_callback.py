@@ -93,11 +93,14 @@ for each_message in consumer:
             ansible_host = ansible_message["ansible_host"]
             result = loads(ansible_message["ansible_result"])
             if result["changed"]:
-                print('=' * 28 + '{}'.format(ansible_host) + '=' * 28 )
-                print('=' * 64 + '\nchanged\n')
-                print('diff_lines: ' + str(result["diff_lines"]))
+                device = {}
+                device["ansible_host"] = ansible_host
+                device["ansible_result"] = result["diff_lines"]
+                dirty_devices.append(device)
         else:
             pass
     except KeyError:
         pass
+    
+    print(dirty_devices)
     # send_request(host_name, neighbor, iface)
