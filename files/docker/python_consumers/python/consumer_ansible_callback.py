@@ -92,7 +92,10 @@ for each_message in consumer:
         if ansible_message["status"] != 'SKIPPED':
             result = loads(ansible_message["ansible_result"])
             if result["changed"]:
-                print('changed')
+                print('=' * 64 + '\nchanged\n')
+                print('ansible_message: ' + str(ansible_message))
+            else:
+                print('=' * 64 + '\nnot changed\n')
                 print('ansible_message: ' + str(ansible_message))
         else:
             pass
