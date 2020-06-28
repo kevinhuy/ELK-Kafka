@@ -87,9 +87,13 @@ for each_message in consumer:
     # ansible_task
     try:
         print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
-        print(ansible_message)
+        try:
+            if ansible_message["ansible_result"]:
+                print(ansible_message["ansible_result"])
+        except KeyError:
+            pass
         print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
-        print("\n\n\n\n\n")
+        print("\n\n\n")
         # if ansible_message["status"] != 'SKIPPED':
         #     ansible_host = ansible_message["ansible_host"]
         #     result = loads(ansible_message["ansible_result"])
