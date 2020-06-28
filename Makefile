@@ -32,7 +32,7 @@ KAFKA_CONTAINER_IMAGE = packetferret/elk-kafka
 KAFKA_CONTAINER_TAG = 0.0.1
 KAFKA_CONTAINER_PORT = 9092
 KAFKA_CONTAINER_NAME = elk-kafka
-KAFKA_CREATE_TOPICS = "juniper:1:1,ansible_callback:1:1"
+KAFKA_CREATE_TOPICS = "all:1:1,ansible_callback:1:1"
 KAFKA_ZOOKEEPER_CONNECT = 10.6.6.101:2181
 KAFKA_ADVERTISED_HOST_NAME = 10.6.6.101
 
@@ -43,10 +43,10 @@ ZOOKEEPER_CONTAINER_NAME = elk-zookeeper
 
 KAFKA_CONSUMER_IMAGE = packetferret/elk-kafka-consumer
 KAFKA_CONSUMER_TAG = 0.0.1
-KAFKA_CONSUMER_NAME_ISIS_DOWN = elk-kafaka-isis-down
-KAFKA_CONSUMER_NAME_ISIS_UP = elk-kafaka-isis-up
-KAFKA_CONSUMER_NAME_ISIS_BGP = elk-kafaka-bgp-down
-KAFKA_CONSUMER_NAME_ANSIBLE_CALLBACK = elk-kafaka-ansible-callback
+KAFKA_CONSUMER_NAME_ISIS_DOWN = kafaka-isis-down
+KAFKA_CONSUMER_NAME_ISIS_UP = kafaka-isis-up
+KAFKA_CONSUMER_NAME_ISIS_BGP = kafaka-bgp-down
+KAFKA_CONSUMER_NAME_ANSIBLE_CALLBACK = kafaka-ansible-callback
 KAFKA_CONSUMER_PYTHON_SCRIPTS_SRC = $(shell pwd)/files/docker/python_consumers/python
 KAFKA_CONSUMER_PYTHON_SCRIPTS_DST = /home/python
 KAFKA_CONSUMER_SCRIPT_ISIS_DOWN = consumer_isis_down.py
