@@ -85,8 +85,7 @@ for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
 
     # ansible_task
-    result = loads(ansible_message)
-    print(result)
+    print(type(ansible_message))
     # try:
     #     if ansible_message["ansible_result"]:
     #         result = loads(ansible_message["ansible_result"])
