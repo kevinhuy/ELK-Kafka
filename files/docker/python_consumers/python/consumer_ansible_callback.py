@@ -83,7 +83,7 @@ consumer = KafkaConsumer(
 
 for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
-    diff = was_diff(ansible_message["message"])
+    diff = was_diff(ansible_message["ansible_result"])
     if diff == True:
         print('ansible_host: {}\nansible_result: {}\nansible_task: {}\nmessage: {}\nstatus: {}'.format(
                 ansible_message["ansible_host"],
