@@ -89,6 +89,7 @@ for each_message in consumer:
         print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
         print(ansible_message)
         print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
+        print("\n\n\n\n\n")
         # if ansible_message["status"] != 'SKIPPED':
         #     ansible_host = ansible_message["ansible_host"]
         #     result = loads(ansible_message["ansible_result"])
