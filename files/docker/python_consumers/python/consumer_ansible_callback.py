@@ -13,31 +13,31 @@ def kafka_cleanup(each_message):
     try:
         ansible_message["ansible_host"] = each_message.value["ansible_host"]
     except KeyError:
-        ansible_message["ansible_host"] = "unknown"
+        pass
 
     # ansible_result
     try:
         ansible_message["ansible_result"] = each_message.value["ansible_result"]
     except KeyError:
-        ansible_message["ansible_result"] = "unknown"
+        pass
 
     # ansible_task
     try:
         ansible_message["ansible_task"] = each_message.value["ansible_task"]
     except KeyError:
-        ansible_message["ansible_task"] = "unknown"
+        pass
 
     # message
     try:
         ansible_message["message"] = each_message.value["message"]
     except KeyError:
-        ansible_message["message"] = "unknown"
+        pass
 
     # status
     try:
         ansible_message["status"] = each_message.value["status"]
     except KeyError:
-        ansible_message["status"] = "status"
+        pass
 
     return(ansible_message)
 
@@ -83,12 +83,5 @@ consumer = KafkaConsumer(
 
 for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
-    print('ansible_host: {}\nansible_result: {}\nansible_task: {}\nmessage: {}\nstatus: {}'.format(
-            ansible_message["ansible_host"],
-            ansible_message["ansible_result"],
-            ansible_message["ansible_task"],
-            ansible_message["message"],
-            ansible_message["status"]
-        )
-    )
+    print(ansible_message)
     # send_request(host_name, neighbor, iface)
