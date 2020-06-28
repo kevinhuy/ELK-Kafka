@@ -1,6 +1,6 @@
 # ELK-Kafka
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Build Status](https://travis-ci.com/packetferret/ELK-Kafka.svg?branch=master)](https://travis-ci.com/packetferret/ELK-Kafka)
 
 `ELK-Kafka` is an easier way to spin up a SYSLOG and Message Queue for network engineering operations
 
