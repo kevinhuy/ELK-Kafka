@@ -89,19 +89,19 @@ for each_message in consumer:
         print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
         print(ansible_message)
         print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
-        if ansible_message["status"] != 'SKIPPED':
-            ansible_host = ansible_message["ansible_host"]
-            result = loads(ansible_message["ansible_result"])
-            device = {}
-            device["ansible_host"] = ansible_host
-            if result["changed"]:
-                device["changed"] = True
-                device["diff"] = result["diff_lines"]
-            else:
-                device["changed"] = False
-            print(device)
-        else:
-            pass
+        # if ansible_message["status"] != 'SKIPPED':
+        #     ansible_host = ansible_message["ansible_host"]
+        #     result = loads(ansible_message["ansible_result"])
+        #     device = {}
+        #     device["ansible_host"] = ansible_host
+        #     if result["changed"]:
+        #         device["changed"] = True
+        #         device["diff"] = result["diff_lines"]
+        #     else:
+        #         device["changed"] = False
+        #     print(device)
+        # else:
+        #     pass
     except KeyError:
         pass
     # send_request(host_name, neighbor, iface)
