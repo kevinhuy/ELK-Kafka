@@ -9,8 +9,8 @@ LOGSTASH_CONTAINER_HTTP_API = 9600
 LOGSTASH_CONTAINER_NAME = elk-logstash
 LOGSTASH_CONFIG_FILE_SRC = $(shell pwd)/files/docker/logstash/config/logstash.yml
 LOGSTASH_CONFIG_FILE_DST = /usr/share/logstash/config/logstash.yml
-LOGSTASH_PIPELINE_FILE_SRC = $(shell pwd)/files/docker/logstash/config/juniper.conf
-LOGSTASH_PIPELINE_FILE_DST =  /usr/share/logstash/pipeline/juniper.conf
+LOGSTASH_PIPELINE_FILE_SRC = $(shell pwd)/files/docker/logstash/config/pipeline.conf
+LOGSTASH_PIPELINE_FILE_DST =  /usr/share/logstash/pipeline/pipeline.conf
 
 ELASTICSEARCH_CONTAINER_IMAGE = packetferret/elk-elasticsearch
 ELASTICSEARCH_CONTAINER_TAG = 0.0.1
@@ -70,11 +70,15 @@ clean:
 	docker stop \
 		$(LOGSTASH_CONTAINER_NAME)\
 		$(ELASTICSEARCH_CONTAINER_NAME)\
-		$(KIBANA_CONTAINER_NAME);
+		$(KIBANA_CONTAINER_NAME)\
+		$(ZOOKEEPER_CONTAINER_NAME)\
+		$(KAFKA_CONTAINER_NAME);
 	docker rm \
 		$(LOGSTASH_CONTAINER_NAME)\
 		$(ELASTICSEARCH_CONTAINER_NAME)\
-		$(KIBANA_CONTAINER_NAME);
+		$(KIBANA_CONTAINER_NAME)\
+		$(ZOOKEEPER_CONTAINER_NAME)\
+		$(KAFKA_CONTAINER_NAME);
 
 clean_images:
 	docker rmi \
