@@ -44,10 +44,10 @@ ZOOKEEPER_CONTAINER_NAME = elk-zookeeper
 
 KAFKA_CONSUMER_IMAGE = packetferret/elk-kafka-consumer
 KAFKA_CONSUMER_TAG = 0.0.1
-KAFKA_CONSUMER_NAME_ISIS_DOWN = kafaka-isis-down
-KAFKA_CONSUMER_NAME_ISIS_UP = kafaka-isis-up
-KAFKA_CONSUMER_NAME_ISIS_BGP = kafaka-bgp-down
-KAFKA_CONSUMER_NAME_ANSIBLE_CALLBACK = kafaka-ansible-callback
+KAFKA_CONSUMER_NAME_ISIS_DOWN = kafka-isis-down
+KAFKA_CONSUMER_NAME_ISIS_UP = kafka-isis-up
+KAFKA_CONSUMER_NAME_ISIS_BGP = kafka-bgp-down
+KAFKA_CONSUMER_NAME_ANSIBLE_CALLBACK = kafka-ansible-callback
 KAFKA_CONSUMER_PYTHON_SCRIPTS_SRC = $(shell pwd)/files/docker/python_consumers/python
 KAFKA_CONSUMER_PYTHON_SCRIPTS_DST = /home/python
 KAFKA_CONSUMER_SCRIPT_ISIS_DOWN = consumer_isis_down.py
@@ -64,7 +64,7 @@ help:
 	@echo '		make build-logstash		build logstash container image'
 	@echo '		make build-elasticsearch	build elasticsearch container image'
 	@echo '		make build-kibana		build kibana container image'
-	@echo '		make build-kafka		build kafaka container image'
+	@echo '		make build-kafka		build kafka container image'
 	@echo '		make logs			tap into the logs of a container'
 	@echo '		make run			run our containers'
 	@echo '		make rm				simply remove the containers, not the container image'
