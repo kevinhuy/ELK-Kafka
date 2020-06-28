@@ -28,7 +28,7 @@ def syslog_cleanup(msg):
 def send_request(host_name, neighbor, iface):
     try:
         response = requests.post(
-            url="http://10.6.6.46/api/v2/job_templates/12/launch/",
+            url="http://10.6.6.101/api/v2/job_templates/12/launch/",
             headers={
                 "Authorization": "Basic YXV0b21hdGlvbjpqdW5pcGVyMTIz",
                 "Content-Type": "application/json; charset=utf-8",
@@ -52,7 +52,7 @@ def send_request(host_name, neighbor, iface):
 consumer = KafkaConsumer(
     'isis_down',
     value_deserializer=lambda m: loads(m.decode('utf-8')),
-    bootstrap_servers='10.6.6.46:9092'
+    bootstrap_servers='10.6.6.101:9092'
     )
 
 
