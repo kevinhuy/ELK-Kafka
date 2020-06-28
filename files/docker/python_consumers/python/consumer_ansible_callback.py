@@ -11,7 +11,7 @@ def kafka_cleanup(each_message):
 
     # ansible_host
     try:
-        ansible_message["ansible_host"] = each_message.value["platform"]
+        ansible_message["ansible_host"] = each_message.value["ansible_host"]
     except KeyError:
         ansible_message["ansible_host"] = "unknown"
 
