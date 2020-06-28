@@ -83,5 +83,5 @@ consumer = KafkaConsumer(
 
 for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
-    ansible_message = loads(ansible_message)
-    print(ansible_message)
+    print(type(ansible_message))
+    # ansible_message = loads(ansible_message)
