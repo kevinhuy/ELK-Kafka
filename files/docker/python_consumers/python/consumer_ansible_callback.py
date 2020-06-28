@@ -83,16 +83,12 @@ consumer = KafkaConsumer(
 
 for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
-    diff = was_diff(ansible_message["ansible_result"])
-    if diff:
-        print('ansible_host: {}\nansible_result: {}\nansible_task: {}\nmessage: {}\nstatus: {}'.format(
-                ansible_message["ansible_host"],
-                ansible_message["ansible_result"],
-                ansible_message["ansible_task"],
-                ansible_message["message"],
-                ansible_message["status"]
-            )
+    print('ansible_host: {}\nansible_result: {}\nansible_task: {}\nmessage: {}\nstatus: {}'.format(
+            ansible_message["ansible_host"],
+            ansible_message["ansible_result"],
+            ansible_message["ansible_task"],
+            ansible_message["message"],
+            ansible_message["status"]
         )
-    else:
-        print('diff is : {}'.format(diff))
+    )
     # send_request(host_name, neighbor, iface)
