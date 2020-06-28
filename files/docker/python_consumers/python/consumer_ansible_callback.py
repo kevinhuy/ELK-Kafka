@@ -87,9 +87,7 @@ for each_message in consumer:
     # ansible_task
     try:
         if ansible_message["ansible_result"]:
-            print(ansible_message["ansible_result"])
             result = loads(ansible_message["ansible_result"])
-            print(result)
             if result["changed"] == True:
                 print("RESULT GOES HERE")
     except KeyError:
