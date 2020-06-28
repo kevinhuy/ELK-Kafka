@@ -93,7 +93,7 @@ clean_images:
 		$(KAFKA_CONSUMER_IMAGE):$(KAFKA_CONSUMER_TAG)\
 		$(ZOOKEEPER_CONTAINER_IMAGE):$(ZOOKEEPER_CONTAINER_TAG)
 
-build: build_logstash build_elasticsearch build_kibana build_zookeeper build_kafka
+build: build_logstash build_elasticsearch build_kibana build_zookeeper build_kafka build_consumer
 
 build_logstash:
 	docker build \
