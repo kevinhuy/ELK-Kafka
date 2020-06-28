@@ -88,23 +88,7 @@ for each_message in consumer:
     try:
         if ansible_message["ansible_result"]:
             result = loads(ansible_message["ansible_result"])
-            # print(result)
             if result["changed"] == True:
-                print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
                 print(result)
-                print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
     except KeyError:
         pass
-    # if ansible_message["status"] != 'SKIPPED':
-    #     ansible_host = ansible_message["ansible_host"]
-    #     result = loads(ansible_message["ansible_result"])
-    #     device = {}
-    #     device["ansible_host"] = ansible_host
-    #     if result["changed"]:
-    #         device["changed"] = True
-    #         device["diff"] = result["diff_lines"]
-    #     else:
-    #         device["changed"] = False
-    #     print(device)
-    # else:
-    #     pass
