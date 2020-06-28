@@ -87,6 +87,4 @@ for each_message in consumer:
     # ansible_task
     if ansible_message["ansible_result"]:
         result = loads(ansible_message["ansible_result"])
-        print(result["changed"])
-        # if result["changed"] == True:
-        #     print("RESULT GOES HERE")
+        print(result)
