@@ -95,7 +95,6 @@ for each_message in consumer:
             if result["changed"]:
                 print('=' * 28 + '{}'.format(ansible_host) + '=' * 28 )
                 print('=' * 64 + '\nchanged\n')
-                print('ansible_message: ' + str(ansible_message))
                 print('diff_lines: ' + str(result["diff_lines"]))
         else:
             pass
