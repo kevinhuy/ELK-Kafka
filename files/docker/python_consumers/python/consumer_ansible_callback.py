@@ -91,7 +91,9 @@ for each_message in consumer:
             if ansible_message["ansible_result"]:
                 print(ansible_message["ansible_result"])
                 try:
-                    if ansible_message["ansible_result"]["file"]:
+                    if ansible_message["ansible_result"]:
+                        result = loads(ansible_message["ansible_result"])
+                        print(result)
                         print('hey yo, file was defined')
                 except KeyError:
                     pass
