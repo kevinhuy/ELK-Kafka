@@ -88,6 +88,7 @@ for each_message in consumer:
     try:
         if ansible_message["ansible_result"]:
             result = loads(ansible_message["ansible_result"])
+            print(result)
             if result["changed"] == True:
                 print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
                 print(result)
