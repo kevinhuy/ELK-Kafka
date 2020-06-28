@@ -90,11 +90,10 @@ for each_message in consumer:
         try:
             if ansible_message["ansible_result"]:
                 print(ansible_message["ansible_result"])
+                result = loads(ansible_message["ansible_result"])
                 try:
-                    if ansible_message["ansible_result"]:
-                        result = loads(ansible_message["ansible_result"])
-                        print(result)
-                        print('hey yo, file was defined')
+                    if result["ansible_result"]["result"]["diff_lines"]:
+                        print(result["ansible_result"]["result"])
                 except KeyError:
                     pass
         except KeyError:
