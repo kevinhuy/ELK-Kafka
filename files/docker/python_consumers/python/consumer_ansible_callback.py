@@ -94,4 +94,3 @@ for each_message in consumer:
             )
         )
     # send_request(host_name, neighbor, iface)
-    print(each_message)
