@@ -83,7 +83,6 @@ consumer = KafkaConsumer(
 
 for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
-    print(ansible_message)
     # ansible_task
     try:
         if ansible_message["status"] != 'SKIPPED':
