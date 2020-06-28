@@ -85,17 +85,17 @@ for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
 
     # ansible_task
-    print(ansible_message)
-    # try:
-    #     if ansible_message["ansible_result"]:
-    #         result = loads(ansible_message["ansible_result"])
-    #         print(result)
-    #         if result["changed"] == True:
-    #             print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
-    #             print(result)
-    #             print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
-    # except KeyError:
-    #     pass
+    try:
+        if ansible_message["ansible_result"]:
+            print(ansible_message["ansible_result"])
+            result = loads(ansible_message["ansible_result"])
+            # print(result)
+            if result["changed"] == True:
+                print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
+                print(result)
+                print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
+    except KeyError:
+        pass
     # if ansible_message["status"] != 'SKIPPED':
     #     ansible_host = ansible_message["ansible_host"]
     #     result = loads(ansible_message["ansible_result"])
