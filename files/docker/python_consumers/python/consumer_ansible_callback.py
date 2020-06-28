@@ -86,14 +86,14 @@ for each_message in consumer:
 
     # ansible_task
     try:
+        print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
+        print(ansible_message)
+        print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
         if ansible_message["status"] != 'SKIPPED':
             ansible_host = ansible_message["ansible_host"]
             result = loads(ansible_message["ansible_result"])
             device = {}
             device["ansible_host"] = ansible_host
-            print("*" * 64 + str(ansible_host) + "*" * 64)
-            print(ansible_message)
-            print("*" * 64 + str(ansible_host) + "*" * 64)
             if result["changed"]:
                 device["changed"] = True
                 device["diff"] = result["diff_lines"]
