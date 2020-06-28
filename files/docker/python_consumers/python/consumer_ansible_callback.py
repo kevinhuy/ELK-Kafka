@@ -91,8 +91,7 @@ for each_message in consumer:
             if ansible_message["ansible_result"]:
                 print(ansible_message["ansible_result"])
                 try:
-                    if ansible_message["ansible_result"]["result"]:
-                        print(ansible_message["ansible_result"]["result"]["diff_lines"])
+                    print(ansible_message["ansible_result"]["result"]["diff_lines"])
                 except KeyError:
                     pass
         except KeyError:
