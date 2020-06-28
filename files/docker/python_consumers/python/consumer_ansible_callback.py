@@ -89,14 +89,14 @@ for each_message in consumer:
         print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
         try:
             if ansible_message["ansible_result"]:
-                print(ansible_message["ansible_result"])
                 result = loads(ansible_message["ansible_result"])
-                try:
-                    if result["result"]["diff_lines"]:
-                        print(result["result"])
-                        print("party")
-                except KeyError:
-                    pass
+                print(result)
+                # try:
+                #     if result["result"]["diff_lines"]:
+                #         print(result["result"])
+                #         print("party")
+                # except KeyError:
+                #     pass
         except KeyError:
             pass
         print("*" * 64 + str(ansible_message["ansible_host"]) + "*" * 64)
