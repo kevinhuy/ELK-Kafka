@@ -101,6 +101,6 @@ for each_message in consumer:
             pass
     except KeyError:
         pass
-    
-    print(dirty_devices)
     # send_request(host_name, neighbor, iface)
+    
+print(dirty_devices)
