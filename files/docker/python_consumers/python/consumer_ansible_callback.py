@@ -83,12 +83,17 @@ consumer = KafkaConsumer(
 
 for each_message in consumer:
     ansible_message = kafka_cleanup(each_message)
+
+    # ### devices out of sync with golden config
+    dirty_devices = []
+    
     # ansible_task
     try:
         if ansible_message["status"] != 'SKIPPED':
-            print('message was not skipped\nmessage: {}'.format(ansible_message))
+            result = loads(ansible_message["ansible_result"])
+            print(result)
         else:
-            print('message was skipped')
+            pass
     except KeyError:
         pass
     # send_request(host_name, neighbor, iface)
