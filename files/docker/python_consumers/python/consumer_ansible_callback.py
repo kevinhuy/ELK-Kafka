@@ -4,12 +4,42 @@ import requests
 import re
 
 def kafka_cleanup(each_message):
-    ansible_host = each_message.value['ansible_host']
-    ansible_result = each_message.value['ansible_result']
-    ansible_task = each_message.value['ansible_task']
-    message = each_message.value['message']
-    status = each_message.value['status']
-    return(ansible_host, ansible_result, ansible_task, message, status)
+    # ##########################################################
+    # ### each message
+    # ########################################################## 
+    ansible_message = {}
+
+    # ansible_host
+    try:
+        ansible_message["ansible_host"] = each_message.value["platform"]
+    except KeyError:
+        ansible_message["ansible_host"] = "unknown"
+
+    # ansible_result
+    try:
+        ansible_message["ansible_result"] = each_message.value["ansible_result"]
+    except KeyError:
+        ansible_message["ansible_result"] = "unknown"
+
+    # ansible_task
+    try:
+        ansible_message["ansible_task"] = each_message.value["ansible_task"]
+    except KeyError:
+        ansible_message["ansible_task"] = "unknown"
+
+    # message
+    try:
+        ansible_message["message"] = each_message.value["message"]
+    except KeyError:
+        ansible_message["message"] = "unknown"
+
+    # status
+    try:
+        ansible_message["status"] = each_message.value["status"]
+    except KeyError:
+        ansible_message["status"] = "status"
+
+    return(ansible_message)
 
 
 def was_diff(ansible_result):
@@ -52,8 +82,16 @@ consumer = KafkaConsumer(
 
 
 for each_message in consumer:
-    ansible_host, ansible_result, ansible_task, message, status = kafka_cleanup(each_message)
-    diff = was_diff(ansible_result)
+    ansible_message = kafka_cleanup(each_message)
+    diff = was_diff(ansible_message["message"])
     if diff == True:
-        print('ansible_host: ' + ansible_host + '\nansible_result: ' + ansible_result + '\nansible_task: ' + ansible_task + '\nmessage: ' + message + '\nstatus: ' + status)
+        print('ansible_host: {}\nansible_result: {}\nansible_task: {}\nmessage: {}\nstatus: {}'.format(
+                ansible_message["ansible_host"],
+                ansible_message["ansible_result"],
+                ansible_message["ansible_task"],
+                ansible_message["message"],
+                ansible_message["status"]
+            )
+        )
+    # send_request(host_name, neighbor, iface)
     print(each_message)
