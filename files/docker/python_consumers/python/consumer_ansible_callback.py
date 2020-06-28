@@ -94,7 +94,6 @@ for each_message in consumer:
             if result["changed"]:
                 print('changed')
                 print('ansible_message: ' + str(ansible_message))
-            print(result)
         else:
             pass
     except KeyError:
