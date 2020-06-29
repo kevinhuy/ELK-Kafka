@@ -55,9 +55,9 @@ for each_message in consumer:
                     playbook_result = {}
                     playbook_result["hostname"] = each[0]
                     playbook_result["report"] = each[1]
-                    print(playbook_result)
-                    if playbook_result["report"]["report"]["changed"] > 0:
-                        print('SOMETHING CHANGED')
+                    if playbook_result["report"]["changed"] > 0:
+                        print("SOMETHING CHANGED")
+                        print(playbook_result)
 
     except KeyError:
         pass
